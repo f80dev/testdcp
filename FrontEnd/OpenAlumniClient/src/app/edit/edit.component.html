@@ -138,16 +138,31 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
+        <mat-form-field appearance="fill" class="app-field" style="width: 70%;">
+          <mat-label>Critère de recherche</mat-label>
+          <input matInput type="text" max="50" [(ngModel)]="query">
+        </mat-form-field>
+
+        <button class="icon-button" mat-icon-button
+                mat-raised-button
+                title="Ouvrir tous les sites simultanément"
+                (click)="open_all_site('search')">
+          <mat-icon>search</mat-icon>
+        </button>
+        <br>
+
+
         <table style="width:100%;">
-          <tr style="width:100%;" *ngFor="let site of jobsites">
-            <td>{{site.name}}</td>
-            <td style="padding: 5px;"><small>{{site.description}}</small></td>
+          <tr style="width:100%;font-size: small;padding-bottom: 3px;" *ngFor="let site of jobsites">
+            <td>
+              <strong>{{site.name}}</strong><br>
+              {{site.description}}
+            </td>
             <td style="width:50px">
               <button class="app-button" mat-button mat-raised-button (click)="opensite(site,'search')">
                 Offres
               </button>
-            </td>
-            <td style="width:50px">
+              <br>
               <button class="app-button" mat-button mat-raised-button (click)="opensite(site,'login')">
                 Login
               </button>

@@ -57,6 +57,7 @@ export class EditComponent implements OnInit  {
   earning: any;
   acceptSponsor:boolean;
   message:string="";
+  query: string = "";
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -305,15 +306,27 @@ export class EditComponent implements OnInit  {
   }
 
 
-  refresh_job() {
-    this.api._get("jobsites/","profil="+this.profil.id).subscribe((res:any)=>{
-      this.jobsites=res.content;
+  refresh_job(func:Function=null) {
+    this.api._get("jobsites/","profil="+this.profil.id+"&job="+this.query).subscribe((res:any)=>{
+      this.jobsites=res.sites.content;
+      this.query=res.job;
+      if(func)func();
     })
   }
 
   opensite(site: any, page: string) {
     if(page=="search")open(site.job_page)
     if(page=="login")open(site.login_page)
+  }
+
+  open_all_site(search: string) {
+    this.refresh_job(()=>{
+      let i=0;
+      for(let site of this.jobsites){
+        i++;
+        open(site.job_page,"screen"+i);
+      }
+    });
   }
 }
 

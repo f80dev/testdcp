@@ -24,6 +24,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
 from rest_framework.decorators import api_view,  permission_classes, renderer_classes
+from rest_framework.fields import JSONField
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -190,12 +191,15 @@ def refresh_jobsites(request):
         text:str=f.read()
 
     profil=Profil.objects.get(id=request.GET.get("profil"))
-    text = text.replace("%job%", urlquote(profil.job))
+    job=request.GET.get("job","")
+    if len(job)==0:job=profil.job
+
+    text = text.replace("%job%", urlquote(job))
     text = text.replace("%lastname%", urlquote(profil.lastname))
     text = text.replace("%firstname%", urlquote(profil.firstname))
 
     sites=yaml.load(text)
-    return JsonResponse(sites)
+    return JsonResponse({"sites":sites,"job":profil.job})
 
 
 
@@ -539,34 +543,61 @@ def movie_importer(request):
     i = 0
     record = 0
     for row in list(d):
-        if i>0 and len(row)>10:
+        pow=None
+        if len(row)>10:
+            if i>0:
+                if row[6]=="":row[6]="0"
+                if row[11]=="":row[11]="1800"
 
-            #dtEnd=str(datetime.fromtimestamp(dateToTimestamp(row[3]))),
+                pow:PieceOfWork=PieceOfWork(
+                    title=row[0].replace(u'\xa0', u' '),
+                    description=row[1],
+                    visual=row[4],
+                    nature=row[5],
+                    dtStart=row[2],
+                    budget=int(row[6]),
+                    category=row[7],
+                    links=[{"url":row[9],"text":row[8]}],
+                    lang="US",
+                    year=int(row[11]),
+                    owner=row[10]
+                )
 
-            if row[6]=="":row[6]="0"
-            if row[11]=="":row[11]="1800"
+                if not pow is None:
+                    try:
+                        pow.category = pow.category.replace("|", " ")
+                        rc = pow.save()
+                        log("Ajout de " + pow.title)
+                        record = record + 1
+                    except Exception as inst:
+                        log("Probléme d'enregistrement" + str(inst))
 
-            pow:PieceOfWork=PieceOfWork(
-                title=row[0].replace(u'\xa0', u' '),
-                description=row[1],
-                visual=row[4],
-                nature=row[5],
-                dtStart=row[2],
-                budget=int(row[6]),
-                category=row[7],
-                links=[{"url":row[9],"text":row[8]}],
-                lang="US",
-                year=int(row[11]),
-                owner=row[10]
-            )
-
-            try:
-                pow.category=pow.category.replace("|"," ")
-                rc = pow.save()
+        else:
+            pows=PieceOfWork.objects.filter(title__iexact=row[0])
+            if len(pows)==0:
+                pow: PieceOfWork = PieceOfWork(
+                    title=row[0],
+                    description=translate(row[4]),
+                    nature=translate(row[2]),
+                    category=row[3],
+                    lang="FR"
+                )
+                if len(row[1])>0:pow.year=int(str(row[1]).split(",")[0])
+                pow.add_link("https://femis.fr","FEMIS","Film ajouter depuis le référencement FEMIS")
+                pow.save()
                 log("Ajout de "+pow.title)
-                record = record + 1
-            except Exception as inst:
-                log("Probléme d'enregistrement" + str(inst))
+            else:
+                pow=pows.first()
+
+            name=row[6].replace("\n","")
+            if " " in name:
+                profils = Profil.objects.filter(lastname__icontains=name.split(" ")[1],firstname__icontains=name.split(" ")[0])
+                if len(profils)>0:
+                    work=Work(pow_id=pow.id,job=translate(row[5]),profil_id=profils.first().id)
+                    work.save()
+
+
+
         i=i+1
     log("Importation terminé de "+str(record)+" films")
 

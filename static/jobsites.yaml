@@ -8,7 +8,7 @@ content:
     main_page: https://intermittent.fr/
     description: "Un site dédié aux intermittents du spectacle"
     login_page: https://intermittent.fr/cv-intermittent-du-spectacle/
-    job_page: hhttps://intermittent.fr/recherche-offres-emplois-intermittents-spectacle/?search_keywords=%job%
+    job_page: https://intermittent.fr/recherche-offres-emplois-intermittents-spectacle/?search_keywords=%job%
 
   - name: Indeed
     main_page: https://fr.indeed.com/?r=us
