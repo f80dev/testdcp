@@ -11,11 +11,22 @@ firewall-cmd --zone=public --add-port=9090/tcp
 </pre>
 
 
+##Renouvellement des certificats Let's encrypt
+Installation pour fedora
+<pre>
+dnf install certbot
+firewall-cmd --zone=public --add-port=8080/tcp
+certbot certonly --standalone --email hhoareau@gmail.com -d server.f80.fr
+mkdir /root/certs
+cp /etc/letsencrypt/live/server.f80.fr/* /root/certs
+</pre>
+
+
 
 ##Netoyage préalable
 Il peut être nécessaire de netoyer la base prélablement:
 <pre>
-python manage.py flush
+python manage.py flush --settings OpenAlumni.settings 
 python manage.py search_index --rebuild
 </pre>
 
@@ -47,8 +58,8 @@ ou avec podman
 <pre>
 setenforce 0 
 mkdir /root/postgre
-podman rm -f postgre
-podman run --name postgre -p 5432:5432  -v /root/postgre:/var/lib/postgresql/data --restart=always  -e POSTGRES_PASSWORD=hh4271 -e POSTGRES_DB=alumni_db -e POSTGRES_USER=hhoareau -d postgres:13-alpine
+docker rm -f postgre
+docker run --name postgre -p 5432:5432  -v /root/postgre:/var/lib/postgresql/data --restart=always  -e POSTGRES_PASSWORD=hh4271 -e POSTGRES_DB=alumni_db -e POSTGRES_USER=hhoareau -d postgres:13-alpine
 </pre>
 
 Si probléme d'accès au répertoire /root/postgres, il faut fixer avec su -c "setenforce 0"
@@ -57,6 +68,7 @@ Créer les utilisateurs admin & anonymous
 
 
 ##Le serveur Django
+A priori le serveur djando s'installe sur le MainServer
 <pre>
 cd /root
 mkdir nginx
@@ -68,24 +80,20 @@ docker-compose up -d --build
 
 
 ##Elasticsearch
-démarrer le noeud elasticsearch
+démarrer le noeud elasticsearch pour la production
 <pre>
 firewall-cmd --zone=public --add-port=9200/tcp
 firewall-cmd --zone=public --add-port=9300/tcp
-podman rm -f elastic_search_server
-podman run -p 9200:9200 -p 9300:9300 --restart=always -e "discovery.type=single-node" --name elastic_search_server -d docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+docker rm -f elastic_search_server
+docker run -p 9200:9200 -p 9300:9300 --restart=always -e "discovery.type=single-node" --name elastic_search_server -d docker.elastic.co/elasticsearch/elasticsearch:7.9.2
 </pre>
 
-ou avec podman (fedora 32) pour la prod
-<pre>
-podman run -p 9200:9200 -p 9300:9300 --restart=always -e "discovery.type=single-node" --name elastic_search_server -d docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-</pre>
 
-ou avec podman (fedora 32) pour l'environnement de dev
+ou avec docker pour l'environnement de dev
 <pre>
 firewall-cmd --zone=public --add-port=9210/tcp
 firewall-cmd --zone=public --add-port=9310/tcp
-podman run -p 9210:9200 -p 9310:9300 --restart=always -e "discovery.type=single-node" --name elastic_search_server-dev -d docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+docker run -p 9210:9200 -p 9310:9300 --restart=always -e "discovery.type=single-node" --name elastic_search_server-dev -d docker.elastic.co/elasticsearch/elasticsearch:7.9.2
 </pre>
 
 

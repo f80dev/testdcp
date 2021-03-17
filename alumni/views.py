@@ -583,7 +583,7 @@ def movie_importer(request):
                     lang="FR"
                 )
                 if len(row[1])>0:pow.year=int(str(row[1]).split(",")[0])
-                pow.add_link("https://femis.fr","FEMIS","Film ajouter depuis le référencement FEMIS")
+                pow.add_link("","FEMIS","Film ajouter depuis le référencement FEMIS")
                 pow.save()
                 log("Ajout de "+pow.title)
             else:
