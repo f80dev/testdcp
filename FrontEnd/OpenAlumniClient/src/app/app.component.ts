@@ -2,7 +2,7 @@ import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {ConfigService} from "./config.service";
 import {ApiService} from "./api.service";
 import {Location} from "@angular/common";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../environments/environment";
 import {MatSidenav} from "@angular/material/sidenav";
 import {ChatAdapter} from "ng-chat";
@@ -25,11 +25,13 @@ export class AppComponent implements OnInit {
   constructor(public config: ConfigService,
               public api:ApiService,
               public _location:Location,
+              public routes:ActivatedRoute,
               public router:Router){
     this.appVersion=environment.appVersion;
+
     config.init(() => {
       this.config.init_user(()=>{
-        //this.router.navigate(["search"]);
+
       },()=>{
         //this.router.navigate(["search"]);
       });

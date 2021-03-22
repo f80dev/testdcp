@@ -101,6 +101,12 @@ export class SearchComponent implements OnInit {
             $$("La base des profils est vide, on propose l'importation")
             this.router.navigate(["import"]);
           }
+
+          if(!this.filter_with_pro){
+            this.filter_with_pro=true;
+            this.refresh();
+          }
+
         } else {
           this.config.query_cache=this.profils;
         }

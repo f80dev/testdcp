@@ -92,7 +92,7 @@ class Profil(models.Model):
 
     @property
     def public_url(self):
-        return DOMAIN_APPLI+"/public/?id="+str(self.id)
+        return DOMAIN_APPLI+"/?id="+str(self.id)
 
     @property
     def promo(self):
