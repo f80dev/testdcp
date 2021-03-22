@@ -82,6 +82,11 @@ export class SearchComponent implements OnInit {
             item.filter_tag=normaliser(item.filter_tag+"titre:"+_work.title+" ");
           }
 
+          if(item.cursus=="S")
+            item.backgroundColor="#171732";
+          else
+            item.backgroundColor="#341414";
+
           if(this.filter_with_pro || item.cursus=="S"){
             this.profils.push(item);
           } else {

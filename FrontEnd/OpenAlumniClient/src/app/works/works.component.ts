@@ -42,7 +42,16 @@ export class WorksComponent implements OnInit {
             if(this.categories.indexOf(w.pow.nature)==-1)this.categories.push(w.pow.nature);
             if(this.jobs.indexOf(w.job)==-1)this.jobs.push(w.job);
             w.pow.short_desc=w.pow.description.substr(0,Math.min(200,w.pow.description.length));
-            this.works.push(w);
+
+            let bAdd=true;
+            for(let tmp of this.works){
+              if(tmp.pow.title==w.pow.title){
+                tmp.job=tmp.job + " & " + w.job;
+                bAdd=false;
+              }
+            }
+            if(bAdd)this.works.push(w);
+
           }
         }
 

@@ -104,7 +104,21 @@ export class EditComponent implements OnInit  {
         this.message="";
         this.works=[];
         for(let w of r.results){
-          if(w.state!="D")this.works.push(w);
+
+          let new_work=w;
+          for(let tmp of this.works){
+            if(tmp.pow.title==w.pow.title){
+              let idx=this.works.indexOf(tmp);
+              this.works[idx].job=this.works[idx].job +" & "+w.job
+              new_work=null;
+              break;
+            }
+          }
+
+          if(w.state!="D"){
+            if(new_work)
+              this.works.push(new_work);
+          }
         }
       });
   }

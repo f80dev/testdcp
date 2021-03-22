@@ -405,14 +405,11 @@ def exec_batch(profils):
             infos = extract_profil_from_bellefaye(firstname=profil.firstname, lastname=profil.lastname)
             log("Extraction bellefaye " + str(infos))
 
-
-
             infos = extract_profil_from_imdb(firstname=profil.firstname, lastname=profil.lastname)
             log("Extraction d'imdb " + str(infos))
             if "url" in infos:profil.add_link(infos["url"], "IMDB")
             if "photo" in infos and len(profil.photo)==0:profil.photo=infos["photo"]
             if "links" in infos: links=links+infos["links"]
-
 
             infos = extract_actor_from_unifrance(profil.firstname + " " + profil.lastname)
             log("Extraction d'un profil d'unifrance "+str(infos))

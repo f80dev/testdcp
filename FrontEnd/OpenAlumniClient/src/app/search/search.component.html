@@ -95,6 +95,7 @@
     name="profils"
     *ngFor="let profil of profils"
     (delete)="deleteProfil(profil)"
+    [backgroundColor]="profil.backgroundColor"
     [writeAccess]="config.user && config.user.profil==profil?.id || config.hasPerm('edit_profil')"
     (askfriend)="askfriend(profil)"
     (onclick)="openQuery($event)"
