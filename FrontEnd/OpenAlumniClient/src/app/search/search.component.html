@@ -72,7 +72,7 @@
     Recherche Avancée
   </mat-checkbox>
   &nbsp;
-   <mat-checkbox id="chkPro" (change)="with_pro($event)" labelPosition="Before">
+   <mat-checkbox id="chkPro" [(ngModel)]="filter_with_pro" (change)="with_pro($event)" labelPosition="Before">
     Profils Pro
   </mat-checkbox>
 

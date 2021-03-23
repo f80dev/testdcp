@@ -138,7 +138,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <mat-form-field appearance="fill" class="app-field" style="width: 70%;">
+        <mat-form-field appearance="fill" class="app-field" style="width: 70%;max-width: 250px;">
           <mat-label>Critère de recherche</mat-label>
           <input matInput type="text" max="50" [(ngModel)]="query">
         </mat-form-field>
@@ -158,13 +158,12 @@
               <strong>{{site.name}}</strong><br>
               {{site.description}}
             </td>
-            <td style="width:50px">
-              <button class="app-button" mat-button mat-raised-button (click)="opensite(site,'search')">
-                Offres
+            <td style="width:80px">
+              <button class="icon-button" title="Rechercher" mat-icon-button mat-raised-button (click)="opensite(site,'search')">
+                <mat-icon>search</mat-icon>
               </button>
-              <br>
-              <button class="app-button" mat-button mat-raised-button (click)="opensite(site,'login')">
-                Login
+              <button class="icon-button" title="Se connecter" mat-icon-button mat-raised-button (click)="opensite(site,'login')">
+                <mat-icon>person</mat-icon>
               </button>
             </td>
           </tr>

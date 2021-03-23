@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
   perm: string="";
   dtLastSearch: number=0;
   //@ViewChild('order', {static: false}) order: MatSelect;
-  filter_with_pro: boolean=false;
+  filter_with_pro: boolean=true;
 
   constructor(public api:ApiService,
               public dialog:MatDialog,
@@ -39,6 +39,7 @@ export class SearchComponent implements OnInit {
       this.query.value=this.routes.snapshot.queryParamMap.get("filter") || this.routes.snapshot.queryParamMap.get("query") || "";
 
     if(localStorage.getItem("ordering"))this.order=localStorage.getItem("ordering");
+    if(localStorage.getItem("filter_with_pro"))this.filter_with_pro=(localStorage.getItem("filter_with_pro")=="true");
 
     this.refresh();
   }
@@ -197,6 +198,7 @@ export class SearchComponent implements OnInit {
 
   with_pro($event: MatCheckboxChange) {
     this.filter_with_pro=$event.checked;
+    localStorage.setItem("filter_with_pro",String(this.filter_with_pro));
     this.refresh();
   }
 }
