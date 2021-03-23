@@ -66,6 +66,7 @@ RUN mkdir $APP_HOME/mediafiles
 
 WORKDIR $APP_HOME
 COPY ./static $APP_HOME/static
+COPY ./Temp $APP_HOME/Temp
 COPY ./OpenAlumni $APP_HOME/OpenAlumni
 COPY ./alumni $APP_HOME/alumni
 COPY ./manage.py $APP_HOME

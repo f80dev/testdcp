@@ -27,6 +27,11 @@ categories:
   Expérimental, documentaire: documentaire
 
 
+formation:
+  VAE DEC: Directeur d'exploitation (VAE)
+  VAE ARD: ARD (VAE)
+
+
 #Normalisation des métiers
 jobs:
   Boom operator: Opérateur Son
@@ -170,4 +175,6 @@ jobs:
   Participantes: Autre
   Post-audio supervisor: Postprod
   Assistant set manager - uncredited: Autre
-  (directed by): Réalisation
+  directed by: Réalisation
+  location_management: Matériel
+

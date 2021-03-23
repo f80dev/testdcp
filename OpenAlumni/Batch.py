@@ -7,7 +7,7 @@ from django.utils.datetime_safe import datetime
 from imdb import IMDb
 from wikipedia import wikipedia, random, re
 
-from OpenAlumni.Tools import log, translate
+from OpenAlumni.Tools import log, translate, load_page
 from OpenAlumni.settings import MOVIE_CATEGORIES, MOVIE_NATURE, DELAY_TO_AUTOSEARCH
 from alumni.models import Profil, Work, PieceOfWork
 
@@ -34,7 +34,7 @@ def extract_film_from_unifrance(url:str,job_for=None):
     rc=dict()
     if not url.startswith("http"):
         log("On passe par la page de recherche pour retrouver le titre")
-        page = wikipedia.BeautifulSoup(wikipedia.requests.get("https://unifrance.org/recherche?q="+parse.quote(url), headers={'User-Agent': 'Mozilla/5.0'}).text,"html5lib")
+        page=load_page("https://unifrance.org/recherche?q="+parse.quote(url))
         _link=page.find("a",attrs={'href': wikipedia.re.compile("^https://www.unifrance.org/film/[0-9][0-9]")})
         if _link is None:return rc
 
@@ -130,7 +130,7 @@ def extract_profil_from_bellefaye(firstname,lastname):
 
 def extract_actor_from_unifrance(name="céline sciamma"):
     url="https://www.unifrance.org/recherche/personne?q=$query&sort=pertinence".replace("$query",parse.quote(name))
-    page=wikipedia.BeautifulSoup(wikipedia.requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}).text,"html5lib")
+    page=load_page(url)
     links=page.findAll('a', attrs={'href': wikipedia.re.compile("^https://www.unifrance.org/annuaires/personne/")})
 
     rc=list()
@@ -163,7 +163,7 @@ def extract_profil_from_imdb(lastname:str, firstname:str):
             if not "url" in infos:
                 infos["url"]="https://imdb.com/name/nm"+p.personID+"/"
                 log("Ouverture de " + infos["url"])
-                page = wikipedia.BeautifulSoup(wikipedia.requests.get(infos["url"], headers={'User-Agent': 'Mozilla/5.0'}).text,"html5lib")
+                page=load_page(infos["url"])
                 film_zone=page.find("div",{"id":"filmography"})
                 if film_zone is None:film_zone=page
 
@@ -207,7 +207,7 @@ def extract_film_from_imdb(url:str,title:str,name="",job="",):
 
     :return:
     """
-    page=wikipedia.BeautifulSoup(wikipedia.requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}).text,"html5lib")
+    page=load_page(url)
 
     rc = dict({"title": title,"nature":translate("film")})
 
@@ -221,7 +221,6 @@ def extract_film_from_imdb(url:str,title:str,name="",job="",):
         if not zone_info_comp is None and "Season" in zone_info_comp.getText():
             extract_text="S"+zone_info_comp.getText().split("Season")[1].replace("Episode ","E").replace(" | ","").replace(" ","")
             rc["title"]=title+" "+extract_text.split("\n")[0]
-
 
 
     for cat in MOVIE_CATEGORIES:
@@ -314,6 +313,7 @@ def extract_actor_from_wikipedia(lastname,firstname):
             return rc
 
     return None
+
 
 
 def add_pows_to_profil(profil,links,all_links,job_for):

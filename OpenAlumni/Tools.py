@@ -1,4 +1,6 @@
+import hashlib
 import html
+from os.path import exists
 from urllib import parse
 from urllib.parse import urlparse
 
@@ -358,7 +360,7 @@ def translate(wrd:str,dictionnary=None):
     if wrd is None:
         return None
 
-    key=wrd.lower().replace(",","")
+    key=wrd.lower().replace(",","").replace("(","").replace(")","")
     rc = key
     for section in ["jobs","categories"]:
         if key in MYDICT[section].keys():
@@ -370,4 +372,16 @@ def translate(wrd:str,dictionnary=None):
     else:
         return rc
 
+
+def load_page(url:str):
+    filename="./Temp/"+hashlib.sha224(bytes(url,"utf8")).hexdigest()+".html"
+    if exists(filename):
+        with open(filename, 'r', encoding='utf8') as f:
+            html=f.read()
+        return wikipedia.BeautifulSoup(html)
+    else:
+        rc= wikipedia.BeautifulSoup(wikipedia.requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}).text, "html5lib")
+        with open(filename, 'w', encoding='utf8') as f:
+            f.write(str(rc))
+        return rc
 
