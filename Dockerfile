@@ -12,7 +12,7 @@ FROM python
 
 #dev
 #fabrication: docker build -t f80hub/openalumni-dev . & docker push f80hub/openalumni-dev:latest
-#installation: docker rm -f openalumni-dev && docker pull f80hub/openalumni-dev:latest && docker run --restart=always -v /root/certs:/certs -p 8100:8000 --name openalumni-dev -d f80hub/openalumni-dev:latest
+#installation: docker rm -f openalumni-dev && docker pull f80hub/openalumni-dev:latest && docker run --restart=always -v /root/certs:/certs -v /root/Temp:/Temp -p 8100:8000 --name openalumni-dev -d f80hub/openalumni-dev:latest
 
 
 
@@ -57,6 +57,7 @@ RUN pip3 install pandas
 RUN pip3 install xlsxwriter
 RUN pip3 install docutils
 RUN pip3 install networkx
+RUN pip3 install py7zr
 
 #Création des répertoires
 ENV APP_HOME=/home/app

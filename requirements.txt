@@ -26,4 +26,5 @@ djangorestframework-csv
 djangorestframework-xml
 dict2xml
 django-dbbackup
+py7zr
 

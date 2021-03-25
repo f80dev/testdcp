@@ -1,4 +1,5 @@
 from asyncio import sleep
+from os import remove, scandir, unlink
 from urllib import parse
 from urllib.parse import urlparse
 
@@ -7,7 +8,7 @@ from django.utils.datetime_safe import datetime
 from imdb import IMDb
 from wikipedia import wikipedia, random, re
 
-from OpenAlumni.Tools import log, translate, load_page
+from OpenAlumni.Tools import log, translate, load_page, clear_directory
 from OpenAlumni.settings import MOVIE_CATEGORIES, MOVIE_NATURE, DELAY_TO_AUTOSEARCH
 from alumni.models import Profil, Work, PieceOfWork
 
@@ -40,8 +41,9 @@ def extract_film_from_unifrance(url:str,job_for=None):
 
         url=_link.get("href")
 
-    r=wikipedia.requests.get(url, headers={'User-Agent': 'Mozilla/5.0',"accept-encoding": "gzip, deflate"})
-    page = wikipedia.BeautifulSoup(str(r.content,encoding="utf-8"),"html5lib")
+    #r=wikipedia.requests.get(url, headers={'User-Agent': 'Mozilla/5.0',"accept-encoding": "gzip, deflate"})
+    #page = wikipedia.BeautifulSoup(str(r.content,encoding="utf-8"),"html5lib")
+    page=load_page(url)
     _title=page.find('h1', attrs={'itemprop': "name"})
     if not _title is None:
         rc["title"]=_title.text
@@ -93,6 +95,9 @@ def extract_film_from_unifrance(url:str,job_for=None):
                                 rc["job"]=jobs[idx].text.replace(" : ","")
                                 break
 
+    if not "job" in rc:
+        pass
+
 
 
 
@@ -129,8 +134,7 @@ def extract_profil_from_bellefaye(firstname,lastname):
 
 
 def extract_actor_from_unifrance(name="céline sciamma"):
-    url="https://www.unifrance.org/recherche/personne?q=$query&sort=pertinence".replace("$query",parse.quote(name))
-    page=load_page(url)
+    page=load_page("https://www.unifrance.org/recherche/personne?q=$query&sort=pertinence".replace("$query",parse.quote(name)))
     links=page.findAll('a', attrs={'href': wikipedia.re.compile("^https://www.unifrance.org/annuaires/personne/")})
 
     rc=list()
@@ -247,7 +251,8 @@ def extract_film_from_imdb(url:str,title:str,name="",job="",):
         rc["synopsis"]=summary_section.text.replace("\n","").strip()
 
     log("Recherche du role sur le film")
-    credits=wikipedia.BeautifulSoup(wikipedia.requests.get(url+"fullcredits", headers={'User-Agent': 'Mozilla/5.0'}).text,"html5lib")
+
+    credits=load_page(url+"fullcredits")
     if not credits is None:
         credits=credits.find("div",{"id":"main"})
         if not credits is None:
@@ -327,7 +332,7 @@ def add_pows_to_profil(profil,links,all_links,job_for):
     for l in links:
         source = "auto"
         pow = None
-        for p in PieceOfWork.objects.filter(title=l["text"]):
+        for p in PieceOfWork.objects.filter(title__iexact=l["text"]):
             for link in p.links:
                 if l["url"] == link["url"]:
                     pow=p
@@ -360,11 +365,11 @@ def add_pows_to_profil(profil,links,all_links,job_for):
 
             try:
                 result=PieceOfWork.objects.filter(title__iexact=pow.title)
-                if len(result)==0:
-                    pow.save()
-                else:
+                if len(result)>0:
                     log("Le film existe déjà dans la base, on le récupére")
                     pow=result.first()
+                    pow.add_link(l["url"],source)
+                pow.save()
 
                 # TODO: a réétudier car des mises a jour de fiche pourrait nous faire rater des films
                 # il faudrait désindenter le code ci-dessous mais du coup il faudrait retrouver le pow
@@ -385,6 +390,8 @@ def add_pows_to_profil(profil,links,all_links,job_for):
 
 
 #http://localhost:8000/api/batch
+
+
 def exec_batch(profils):
 
     all_links=list()
@@ -402,8 +409,8 @@ def exec_batch(profils):
             log("Hors délai ==> mise a jour")
             profil.dtLastSearch=datetime.now()
 
-            infos = extract_profil_from_bellefaye(firstname=profil.firstname, lastname=profil.lastname)
-            log("Extraction bellefaye " + str(infos))
+            #infos = extract_profil_from_bellefaye(firstname=profil.firstname, lastname=profil.lastname)
+            #log("Extraction bellefaye " + str(infos))
 
             infos = extract_profil_from_imdb(firstname=profil.firstname, lastname=profil.lastname)
             log("Extraction d'imdb " + str(infos))
@@ -442,6 +449,8 @@ def exec_batch(profils):
             #     pass
 
             transact.update(dtLastSearch=profil.dtLastSearch)
+
+    clear_directory("./Temp","html")
 
     return True
 

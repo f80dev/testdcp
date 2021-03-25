@@ -60,6 +60,10 @@ export class ConfigService {
    * @param func
    */
   init(func=null){
+
+    if(this.values && func)
+      func(this.values);
+
     $$("Initialisation de la configuration");
     this.width_screen=window.innerWidth;
 
@@ -81,7 +85,7 @@ export class ConfigService {
             this.values = r;
             this.ready = true;
             $$("Chargement du fichier de configuration", r);
-            if (func != null) func(this.values);
+            if (func) func(this.values);
           }, () => {
             $$("Probléme de chargement de la configuration")
           });

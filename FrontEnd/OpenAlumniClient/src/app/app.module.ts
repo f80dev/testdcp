@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchComponent } from './search/search.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { environment } from '../environments/environment';
 import { ImportComponent } from './import/import.component';
 import {ApiService} from "./api.service";
@@ -102,6 +103,7 @@ import { DevComponent } from './dev/dev.component';
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
+        ScrollingModule,
         BrowserAnimationsModule,
         MatNativeDateModule,
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),

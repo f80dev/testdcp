@@ -66,9 +66,8 @@
 
       <div *ngIf="pow.links?.length>0" style="height:20px;vertical-align:middle;width: 100%;text-align: left;">
         <div *ngFor="let link of pow.links" style="font-size:small;font-weight: lighter;display: inline-block;">
-          <div *ngIf="link.url?.length>0" style="display: inline-block;">
-            <mat-icon style="font-size: medium;width:18px;height:12px;">link</mat-icon>
-            <a href="{{link.url}}" target="_blank">{{link.text.replace("auto:","")}}</a>
+          <div *ngIf="link.url?.length>0" style="display: inline-block;margin:2px;margin-left:5px;">
+            <a href="{{link.url}}" target="_blank">{{link.text.replace("auto:","").toUpperCase()}}</a>
           </div>
           <div *ngIf="link.url?.length==0" style="display: inline-block;">
             {{link.text.replace("auto:","")}}

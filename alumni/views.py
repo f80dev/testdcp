@@ -18,7 +18,7 @@ from django_elasticsearch_dsl_drf.constants import LOOKUP_QUERY_IN, \
     LOOKUP_FILTER_PREFIX, LOOKUP_FILTER_WILDCARD, LOOKUP_QUERY_EXCLUDE, LOOKUP_FILTER_TERM
 from django_elasticsearch_dsl_drf.filter_backends import FilteringFilterBackend, IdsFilterBackend, \
     OrderingFilterBackend, DefaultOrderingFilterBackend, SearchFilterBackend
-from django_elasticsearch_dsl_drf.pagination import PageNumberPagination
+from django_elasticsearch_dsl_drf.pagination import PageNumberPagination, LimitOffsetPagination
 from django_elasticsearch_dsl_drf.viewsets import  DocumentViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from elasticsearch import Elasticsearch
@@ -730,7 +730,7 @@ def oauth(request):
 class ProfilDocumentView(DocumentViewSet):
     document=ProfilDocument
     serializer_class = ProfilDocumentSerializer
-    pagination_class = PageNumberPagination
+    pagination_class = LimitOffsetPagination
     lookup_field = "id"
     filter_backends = [
         FilteringFilterBackend,
@@ -750,7 +750,6 @@ class ProfilDocumentView(DocumentViewSet):
         'town':'town',
         'formation':'department'
     }
-
     ordering_fields = {
         'id':'id',
         'lastname':'lastname',
@@ -758,7 +757,6 @@ class ProfilDocumentView(DocumentViewSet):
         'formation':'department',
         'update':'dtLastUpdate'
     }
-
     suggester_fields = {
         'name_suggest': {
             'field': 'lastname',
@@ -768,12 +766,14 @@ class ProfilDocumentView(DocumentViewSet):
     ordering = ("name")
 
 
+
+
 #http://localhost:8000/api/powsdoc
 @permission_classes([AllowAny])
 class PowDocumentView(DocumentViewSet):
     document=PowDocument
     serializer_class = PowDocumentSerializer
-    pagination_class = PageNumberPagination
+    pagination_class = LimitOffsetPagination
     lookup_field = "id"
 
     filter_backends = [

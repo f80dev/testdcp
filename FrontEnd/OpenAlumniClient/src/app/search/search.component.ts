@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
 import {ApiService} from "../api.service";
-import {$$, api, normaliser, showError, showMessage, translateQuery} from "../tools";
+import {$$, normaliser, showError, showMessage, translateQuery} from "../tools";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ConfigService} from "../config.service";
@@ -20,6 +20,7 @@ export class SearchComponent implements OnInit {
   query:any={value:""};
   order:any;
   message: string="";
+  limit=50;
   perm: string="";
   dtLastSearch: number=0;
   //@ViewChild('order', {static: false}) order: MatSelect;
@@ -41,7 +42,7 @@ export class SearchComponent implements OnInit {
     if(localStorage.getItem("ordering"))this.order=localStorage.getItem("ordering");
     if(localStorage.getItem("filter_with_pro"))this.filter_with_pro=(localStorage.getItem("filter_with_pro")=="true");
 
-    this.refresh();
+    setTimeout(()=>{this.refresh();},500);
   }
 
 
@@ -72,6 +73,7 @@ export class SearchComponent implements OnInit {
       //Ajout du tri
       if(this.order)localStorage.setItem("ordering",this.order);
       if(this.order)param=param+"&ordering="+this.order;
+      param=param+"&limit="+this.limit;
       $$("Appel de la recherche avec param="+param);
       this.api._get("profilsdoc",param).subscribe((r:any) =>{
         this.message="";
@@ -201,4 +203,11 @@ export class SearchComponent implements OnInit {
     localStorage.setItem("filter_with_pro",String(this.filter_with_pro));
     this.refresh();
   }
+
+  inc_limit() {
+    this.limit=this.limit+500;
+    this.refresh();
+  }
 }
+
+

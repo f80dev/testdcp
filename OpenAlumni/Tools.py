@@ -1,9 +1,12 @@
 import hashlib
 import html
+from os import remove, scandir, stat
 from os.path import exists
+from sys import path
 from urllib import parse
 from urllib.parse import urlparse
 
+import py7zr
 import wikipedia
 import random
 from datetime import datetime
@@ -373,15 +376,37 @@ def translate(wrd:str,dictionnary=None):
         return rc
 
 
+def clear_directory(dir, ext):
+    log("Netoyage du répertoire des films")
+    for file in scandir(dir):
+        if file.name.endswith("."+ext):
+            remove(file.path)
+
+
+
 def load_page(url:str):
-    filename="./Temp/"+hashlib.sha224(bytes(url,"utf8")).hexdigest()+".html"
-    if exists(filename):
-        with open(filename, 'r', encoding='utf8') as f:
+    filename=hashlib.sha224(bytes(url,"utf8")).hexdigest()+".html"
+
+    if not exists("./Temp/" + filename):
+        with py7zr.SevenZipFile("./Temp/html.7z", 'r') as archive:
+            archive.extract(path="./Temp",targets=filename)
+
+
+    if exists("./Temp/"+filename) and datetime.now().timestamp()-stat("./Temp/"+filename).st_mtime<3600*24*31:
+        with open("./Temp/"+filename, 'r', encoding='utf8') as f:
             html=f.read()
+            f.close()
+
         return wikipedia.BeautifulSoup(html)
     else:
         rc= wikipedia.BeautifulSoup(wikipedia.requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}).text, "html5lib")
-        with open(filename, 'w', encoding='utf8') as f:
+
+        with open("./Temp/"+filename, 'w', encoding='utf8') as f:
             f.write(str(rc))
+            f.close()
+
+        with py7zr.SevenZipFile("./Temp/html.7z", 'a') as archive:
+            archive.write("./Temp/"+filename,filename)
+
         return rc
 

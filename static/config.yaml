@@ -3,6 +3,10 @@ appname: "Data Culture Pro"
 anonymousOffer: 0
 
 
+search:
+  limit: 50
+
+
 support:
   forum: "http://kerberus.les-forums.com/"
   email: "contact@f80.fr"
