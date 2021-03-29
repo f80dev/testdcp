@@ -82,7 +82,7 @@ class ExtraUserSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     class Meta:
         model = ExtraUser
-        fields  = ['id','user','perm','acceptSponsor','sponsorOf','profil',"ask","friends","profil_name"]
+        fields  = ['id','user','perm','profil',"ask","friends","profil_name"]
 
 
 
@@ -115,7 +115,7 @@ class ProfilSerializer(serializers.ModelSerializer):
     #works = serializers.StringRelatedField(many=True,read_only=True)
     class Meta:
         model=Profil
-        fields=["id","lastname","firstname",
+        fields=["id","lastname","firstname","acceptSponsor","sponsorBy",
                 "mobile","email","photo","gender","job",
                 "facebook","youtube","tiktok","vimeo","instagram","telegram","twitter",
                 "linkedin","degree_year","department",
@@ -130,7 +130,7 @@ class ExtraProfilSerializer(serializers.ModelSerializer):
     works = serializers.StringRelatedField(many=True,read_only=True)
     class Meta:
         model=Profil
-        fields=["id","lastname","firstname",
+        fields=["id","lastname","firstname","acceptSponsor","sponsorBy",
                 "facebook", "youtube", "tiktok", "vimeo", "instagram", "telegram", "twitter",
                 "mobile","email","photo","gender","job",
                 "linkedin","works","degree_year","department",
@@ -168,7 +168,7 @@ class ProfilDocumentSerializer(DocumentSerializer):
     works=serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         document=ProfilDocument
-        fields=("id","firstname","lastname",
+        fields=("id","firstname","lastname","acceptSponsor","sponsorBy",
                 "name","cursus","job","links",
                 "degree_year","public_url",
                 "photo","cp","department",

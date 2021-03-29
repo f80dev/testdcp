@@ -39,6 +39,9 @@ class Profil(models.Model):
     youtube = models.URLField(blank=True, null=True)
     vimeo=models.URLField(blank=True, null=True)
 
+    acceptSponsor = models.BooleanField(null=False, default=False)
+    sponsorBy = models.ForeignKey('Profil', null=True, on_delete=models.PROTECT)
+
     photo=models.TextField(blank=True,help_text="Photo du profil au format Base64")
     gender=models.CharField(max_length=1,blank=False,default="M",choices=(('M','Male'),('F','Female'),('N','Non précisé')))
     cursus=models.CharField(max_length=1,blank=False,default="S",choices=(('S','Standard'),('P','Professionnel')),help_text="Type de formation")
@@ -132,8 +135,7 @@ class ExtraUser(models.Model):
     profil_name=models.CharField(max_length=50,default="",blank=True)
     black_list=models.TextField(help_text="Contient l'ensemble des emails ne pouvant contacter la personne",null=False,default="")
     profil=models.OneToOneField(Profil,on_delete=models.CASCADE,null=True)
-    acceptSponsor=models.BooleanField(null=False,default=False)
-    sponsorOf=models.ForeignKey('ExtraUser',null=True,on_delete=models.PROTECT)
+
     level=models.IntegerField(default=0,help_text="Niveau de l'utilisateur")
     ask=ArrayField(base_field=models.IntegerField(null=False,default=0),null=True)
     friends=ArrayField(base_field=models.IntegerField(null=False,default=0),null=True)

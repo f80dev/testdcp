@@ -22,6 +22,9 @@ perms:
   - tag: ask_friend
     description: à la demande d'ami
 
+  - tag: ask_tutor
+    description: à la demande de tutorat
+
   - tag: delete_profil
     description: la suppression d'un profil
 

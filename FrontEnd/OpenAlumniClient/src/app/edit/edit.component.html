@@ -120,9 +120,9 @@
             Assister les nouveaux élèves
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <mat-checkbox *ngIf="config.user?.user"
-                      (change)="save_user({acceptSponsor:$event})"
-                      [checked]="config.user?.acceptSponsor">
+        <mat-checkbox
+                      (change)="save_profil(null,$event,'acceptSponsor');"
+                      [checked]="profil.acceptSponsor">
           Accepte d'être tuteur
         </mat-checkbox>
       </mat-expansion-panel>

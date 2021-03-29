@@ -195,19 +195,27 @@ export class EditComponent implements OnInit  {
   }
 
 
+  save_profil(func:Function=null,evt=null,field=""){
+    if(field=="acceptSponsor")this.profil.acceptSponsor=evt.checked;
+    this.profil.dtLastUpdate=new Date().toISOString();
+    this.api.setprofil(this.profil).subscribe(()=>{
+      if(func)func();
+    },(err)=>{showError(this,err);});
+  }
+
+
 
   quit(bSave=true) {
     if(bSave){
-      this.profil.dtLastUpdate=new Date().toISOString();
-      this.api.setprofil(this.profil).subscribe(()=>{
-        showMessage(this,"Profil enregistré");
-      },(err)=>{
-        showError(this,err);
+      this.save_profil(()=> {
+        showMessage(this, "Profil enregistré");
       });
       this.save_user();
     }
     this.router.navigate(["search"],{replaceUrl:true});
   }
+
+
 
   del_work(wrk:any) {
     this.dialog.open(PromptComponent,{data: {
@@ -259,6 +267,8 @@ export class EditComponent implements OnInit  {
       })
     }
   }
+
+
 
   save_user(evt=null) {
     if(evt!=null){

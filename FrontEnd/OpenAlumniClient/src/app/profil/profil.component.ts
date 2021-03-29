@@ -92,5 +92,9 @@ export class ProfilComponent implements OnInit,OnChanges {
     }
 
   }
+
+  ask_tutor(profil: any) {
+
+  }
 }
 

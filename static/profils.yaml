@@ -42,7 +42,7 @@ profils:
     perm:
         r_photo r_cpr_firstname r_works r_linkedin w_cp w_firstname advanced_search r_promo
         w_production w_email w_linkedin admin write_email r_mobile r_address r_lastname
-        r_department stats delete_profil delete_pow ask_friend edit_profil add_movies share
+        r_department stats delete_profil delete_pow ask_friend edit_profil add_movies share ask_tutor
     price: 0
     subscription: online
 
@@ -72,7 +72,7 @@ profils:
     level: 0
     presentation: vous êtes un ancien élève et souhaitez retrouver des anciens de votre école
     description: Profil destiné aux anciens élève
-    perm: r_promo r_photo r_cp r_address r_lastname r_firstname r_linkedin prof r_works write_email r_department advanced_search ask_friend
+    perm: r_promo r_photo r_cp r_address r_lastname r_firstname r_linkedin prof r_works write_email r_department advanced_search ask_friend ask_tutor
     price: 0
     subscription: email
 

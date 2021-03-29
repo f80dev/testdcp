@@ -90,6 +90,15 @@
     </button>
 
     <button mat-button mat-icon-button
+           class="small-icon-button"
+            title="Demander en tuteur"
+            name="cmdAskTutor"
+            *ngIf="config.hasPerm('ask_tutor') && profil.acceptSponsor"
+            (click)="ask_tutor(profil)">
+      <mat-icon>school</mat-icon>
+    </button>
+
+    <button mat-button mat-icon-button
             title="Editer mon profil"
            class="small-icon-button"
             name="cmdEditProfil"

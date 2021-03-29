@@ -37,16 +37,16 @@ jobs:
   Boom operator: Opérateur Son
   Sound: Son
   Sound mixer: Mixage Son
-  Sound assistant: Assistant Son
+  Sound assistant: Assitant(e) Son
   Sound editor: Mixage Son
   Camera_department: Caméra
   Production_manager: Producteur
   Music_department: Musique
-  Assistant_director: Assistant réalisateur
+  Assistant_director: Assitant(e) réalisateur
   Script_department: Scénario
   Soundtrack: Compositeur
   Sound department: son
-  Second unit director or assistant director: Assistant réalisateur
+  Second unit director or Assitant(e) director: Assitant(e) réalisateur
   Editor: Montage
   Monteur: Montage
   Scénaristes: Scénario
@@ -68,15 +68,15 @@ jobs:
   Casting_department: Casting
   Casting_director: Casting
   Storyboardeur: Storyboard
-  production assistant: Assistant de production
-  second assistant director: Second assistant réalisateur
+  production assistant: Assitant(e) de production
+  second Assitant(e) director: Assitant(e) réalisateur
   Composer: Compositeur
   Auteur de la musique: Compositeur
-  Assistante à la réalisation: Assistant Réalisation
-  Assistant à la réalisation: Assistant Réalisation
+  Assistante à la réalisation: Assitant(e) Réalisation
+  Assitant(e) à la réalisation: Assitant(e) Réalisation
   Auteurs de la musique: Compositeur
   Attaché de presse (film): Relations presse
-  Assistant réalisateur: Assistant réalisation
+  Assitant(e) réalisateur: Assitant(e) réalisation
   Directeur de production: Direction de production
   Actress: Acteur(trice)
   Attachée de presse (film): Relations presse
@@ -104,16 +104,16 @@ jobs:
   Responsable de la post-production: Post-production
   Monteur son - ingénieur du son: Ingénieur son
   Producteurs délégués: Production déléguée
-  Assistants opérateurs: Assistant opérateur
+  Assistants opérateurs: Assitant(e) opérateur
   Producteurs: Production
   Producteurs exécutifs: Production
   Producteur exécutif: Production
   Monteur son et mixeur: Mixeur
   Distributrice france: Distribution
-  Scriptes: Scripte
+  Scénarios: Scénario
   Production manager: Production
   Producteur étranger: Production
-  Script and continuity department: Scripte
+  Script and continuity department: Scénario
   Agents (presse france): Relations presse
   Chef monteuse: Montage
   Assistante opérateur: Assistant(e) opérateur
@@ -131,17 +131,17 @@ jobs:
   Actor: Acteur(trice)
   Chef opérateur et réalisateur: Chef(fe) op
   Directrices de la photo: Direction Photo
-  Monteuse son et assistante mixage: Montage
+  Monteuse son et assistante mixage: Assitant(e) son
   Chef opératrice: Chef(fe) op
   Cadre: cadrage
   Self: lui-même
-  Assistants son: Assistant son
-  Second sound assistant: Assistant son
-  Assistant monteur: Assistant montage
+  Assistants son: Assitant(e) son
+  Second sound assistant: Assitant(e) son
+  Assitant(e) monteur: Assitant(e) montage
   Directrices de production: Direction de production
   Coproducteur: CoProduction
   Camera and electrical department: Materiel
-  Premier assistant opv / directeur photo: Photo
+  Premier Assitant(e) opv / directeur photo: Photo
   Costume designer: Costumes
   Location management: Materiel
   Productrices: Production
@@ -150,31 +150,33 @@ jobs:
   Opératrice du son: son
   Photographes de plateau: Photo
   Effets visuels: Effets spéciaux
-  Assistant de production: Production
+  Assitant(e) de production: Production
   Producteurs étrangers: Production
   Pre-production sound: pré-prod Son
   Sound_department: Son
   Auteur de l'œuvre originale: Auteur
   Scénariste et réalisatrice: Auteur/Réalisateur
-  Assistante opératrice:
+  Assistante opératrice: Assitant(e) Opérateur(trice)
   Régisseuse générale: Régisseur
   Réalisateur chef-op auteur compositeur: Auteur/Réalisateur
   Narration: Scénario
   Interprètes de la musique: Musique
   Chef décoratrice: Décors
   Interprète de la musique: Musique
-  Intern: Diver
+  Intern: Divers
   Segment team: Divers
   Assistante décoratrice: Décors
   Auteur réalisateur: Auteur/Réalisateur
   Post: Postprod
-  Assistant set manager: Diver
+  Assitant(e) set manager: Divers
   Adaptation: Scénario
   Productrice étrangère: Production
   Visual consultant: Effets spéciaux
   Participantes: Autre
   Post-audio supervisor: Postprod
-  Assistant set manager - uncredited: Autre
+  Assitant(e) set manager - uncredited: Autre
   directed by: Réalisation
   location_management: Matériel
-
+  Script supervisor: Scénario
+  Script: Scénario
+  Assitant(e) script supervisor: Assistance scénario 
