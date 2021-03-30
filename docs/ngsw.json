@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1617111573318,
+  "timestamp": 1617129951539,
   "index": "https://testdcp.f80.fr/index.html",
   "assetGroups": [
     {
@@ -103,7 +103,7 @@
     }
   ],
   "hashTable": {
-    "https://testdcp.f80.fr/0.js": "2c1eeb151c2545d149927e2f0490d6aa653e06df",
+    "https://testdcp.f80.fr/0.js": "1bf74fff0179129decefb007c463521f36f024c8",
     "https://testdcp.f80.fr/assets/default_jobs.json": "2c564458c2e15d101fadf154cbb3171407ed39c2",
     "https://testdcp.f80.fr/assets/icons/LinkedIn.png": "dec770e0a226b15021d0b80154aa18841097a46e",
     "https://testdcp.f80.fr/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
@@ -130,12 +130,12 @@
     "https://testdcp.f80.fr/assets/reporting.pbix": "2b95ac35c6fee4fa408666be84d70943d4604ae8",
     "https://testdcp.f80.fr/assets/reporting.xlsx": "96cf0ffc81aa4fb40725028336ff2962ff12e09f",
     "https://testdcp.f80.fr/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://testdcp.f80.fr/index.html": "270aec1844e02e2c237cbae9e2e8093de54f1765",
-    "https://testdcp.f80.fr/main.js": "24ced2ffe7f77d9b048420f615fb9ba99b609d98",
-    "https://testdcp.f80.fr/manifest.webmanifest": "5430bb03fa346e338146a0956939e110243e7d40",
-    "https://testdcp.f80.fr/polyfills.js": "bbfab32056bb5d6562dadee669ba168aaf389940",
+    "https://testdcp.f80.fr/index.html": "9ec2cc542341775e824e29e73c8916437fd82525",
+    "https://testdcp.f80.fr/main.js": "54c31540a23ee661de6d4b33350b786b205cde7e",
+    "https://testdcp.f80.fr/manifest.webmanifest": "16249b6a9e11e0ecb2451360fe9b42c53efe5241",
+    "https://testdcp.f80.fr/polyfills.js": "08703d9ddbc83492c7832939006a0d42f2a071d7",
     "https://testdcp.f80.fr/runtime.js": "5264a6daea6ec0713f2b8ce8dc4c29df11c5924e",
-    "https://testdcp.f80.fr/styles.css": "44c6474f8065f9454817ca6487ffec1b7c258377"
+    "https://testdcp.f80.fr/styles.css": "1767853a2e4c01a9c2efad33b3f9234b59d174c5"
   },
   "navigationUrls": [
     {
@@ -154,5 +154,6 @@
       "positive": false,
       "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
     }
-  ]
+  ],
+  "navigationRequestStrategy": "performance"
 }

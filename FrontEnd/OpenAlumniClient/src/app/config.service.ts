@@ -4,7 +4,7 @@ import {ApiService} from "./api.service";
 import {Platform} from "@angular/cdk/platform";
 import {HttpClient} from "@angular/common/http";
 import { Location } from '@angular/common';
-import {$$, initAvailableCameras} from "./tools";
+import {$$, initAvailableCameras, showMessage} from "./tools";
 
 @Injectable({
   providedIn: 'root'
@@ -106,6 +106,12 @@ export class ConfigService {
         if(r.count>0){
           $$("Chargement de l'utilisateur ",r.results[0]);
           this.user=r.results[0];
+          if(!this.user.profil){
+            this.api._get("search_profil","email="+this.user.user.email).subscribe((rany)=>{
+              showMessage(this,"Message:"+r.result);
+            })
+          }
+
           if(func_success)func_success();
         } else {
           $$("Aucun compte disponible a l'adresse mail"+email+" on réinitialise le compte")

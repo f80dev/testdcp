@@ -112,7 +112,7 @@ class ExtraPOWSerializer(serializers.ModelSerializer):
 
 #http://localhost:8000/api/profils/?filter{firstname}=Adrien
 class ProfilSerializer(serializers.ModelSerializer):
-    #works = serializers.StringRelatedField(many=True,read_only=True)
+    sponsorBy = serializers.StringRelatedField(many=False, read_only=True)
     class Meta:
         model=Profil
         fields=["id","lastname","firstname","acceptSponsor","sponsorBy",
@@ -128,6 +128,7 @@ class ProfilSerializer(serializers.ModelSerializer):
 #http://localhost:8000/api/profils/?filter{firstname}=Adrien
 class ExtraProfilSerializer(serializers.ModelSerializer):
     works = serializers.StringRelatedField(many=True,read_only=True)
+
     class Meta:
         model=Profil
         fields=["id","lastname","firstname","acceptSponsor","sponsorBy",
@@ -168,7 +169,8 @@ class ProfilDocumentSerializer(DocumentSerializer):
     works=serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         document=ProfilDocument
-        fields=("id","firstname","lastname","acceptSponsor","sponsorBy",
+        fields=("id","firstname","lastname",
+                "acceptSponsor",
                 "name","cursus","job","links",
                 "degree_year","public_url",
                 "photo","cp","department",

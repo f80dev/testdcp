@@ -104,7 +104,6 @@ export class EditComponent implements OnInit  {
         this.message="";
         this.works=[];
         for(let w of r.results){
-
           let new_work=w;
           for(let tmp of this.works){
             if(tmp.pow.title==w.pow.title){
@@ -132,6 +131,9 @@ export class EditComponent implements OnInit  {
         $$("Profil chargé ",p);
         if(p){
           this.profil=p;
+          if(this.profil.sponsorBy)
+            this.profil.sponsorBy=JSON.parse(this.profil.sponsorBy.replaceAll("'","\""));
+
           let d_min=1e9;
           for(let j of this.config.jobs){
             let d=stringDistance(p.department,j.value);
@@ -350,6 +352,16 @@ export class EditComponent implements OnInit  {
         i++;
         open(site.job_page,"screen"+i);
       }
+    });
+  }
+
+  contact_tuteur(tuteur: any) {
+    this.router.navigate(["write"],{queryParams:{id:tuteur.id}})
+  }
+
+  remove_tuteur(tuteur: any) {
+    this.api._patch("profils/"+this.config.user.profil+"/","",{sponsorBy:""}).subscribe(()=>{
+      this._location.back();
     });
   }
 }

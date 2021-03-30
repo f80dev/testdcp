@@ -114,7 +114,7 @@ class Profil(models.Model):
         return s
 
     def __str__(self):
-        return self.email
+        return "{'id':"+str(self.id)+",'email':'"+self.email+"','fullname':'"+self.fullname+"'}"
 
     @property
     def name_field_indexing(self):

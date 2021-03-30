@@ -120,9 +120,34 @@
             Assister les nouveaux élèves
           </mat-panel-description>
         </mat-expansion-panel-header>
+
+        <table *ngIf="profil.sponsorBy"><tr style="width: 100%;">
+          <td style="width: 100%;">Mon Tuteur:<br>
+            <strong><small>{{profil.sponsorBy.fullname}}</small></strong>
+          </td>
+          <td style="width: 30px;text-align: right;">
+            <button class="icon-button" mat-icon-button
+                    mat-raised-button
+                    title="Contacter votre tuteur"
+                    (click)="contact_tuteur(profil.sponsorBy)">
+              <mat-icon>email</mat-icon>
+            </button>
+          </td>
+          <td style="width: 30px;text-align: right;">
+            <button class="icon-button" mat-icon-button
+                    mat-raised-button
+                    title="Ne plus avoir comme tuteur"
+                    (click)="remove_tuteur(profil.sponsorBy)">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </td>
+        </tr></table>
+
+        <br>
+
         <mat-checkbox
-                      (change)="save_profil(null,$event,'acceptSponsor');"
-                      [checked]="profil.acceptSponsor">
+          (change)="save_profil(null,$event,'acceptSponsor');"
+          [checked]="profil.acceptSponsor">
           Accepte d'être tuteur
         </mat-checkbox>
       </mat-expansion-panel>
@@ -330,21 +355,21 @@
 
     <br>
 
-<!--    <mat-form-field appearance="fill" class="app-field" style="max-width: 200px">-->
-<!--      <mat-label>Du</mat-label>-->
-<!--      <input matInput [matDatepicker]="picker" [(ngModel)]="dtStart">-->
-<!--      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--      <mat-datepicker #picker></mat-datepicker>-->
-<!--      <mat-hint>Premier jour de travail</mat-hint>-->
-<!--    </mat-form-field>-->
+    <!--    <mat-form-field appearance="fill" class="app-field" style="max-width: 200px">-->
+    <!--      <mat-label>Du</mat-label>-->
+    <!--      <input matInput [matDatepicker]="picker" [(ngModel)]="dtStart">-->
+    <!--      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+    <!--      <mat-datepicker #picker></mat-datepicker>-->
+    <!--      <mat-hint>Premier jour de travail</mat-hint>-->
+    <!--    </mat-form-field>-->
 
-<!--    <mat-form-field appearance="fill" class="app-field" style="max-width: 200px">-->
-<!--      <mat-label>... Au</mat-label>-->
-<!--      <input matInput [matDatepicker]="picker2" [(ngModel)]="dtEnd">-->
-<!--      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
-<!--      <mat-datepicker #picker2></mat-datepicker>-->
-<!--      <mat-hint>Dernier jour de travail</mat-hint>-->
-<!--    </mat-form-field>-->
+    <!--    <mat-form-field appearance="fill" class="app-field" style="max-width: 200px">-->
+    <!--      <mat-label>... Au</mat-label>-->
+    <!--      <input matInput [matDatepicker]="picker2" [(ngModel)]="dtEnd">-->
+    <!--      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+    <!--      <mat-datepicker #picker2></mat-datepicker>-->
+    <!--      <mat-hint>Dernier jour de travail</mat-hint>-->
+    <!--    </mat-form-field>-->
 
 
     <mat-form-field appearance="fill" class="app-field" style="max-width: 200px">

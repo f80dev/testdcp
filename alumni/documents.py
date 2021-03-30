@@ -32,6 +32,7 @@ class ProfilDocument(Document):
     class Django(object):
         model=Profil
         fields=["id","firstname","lastname",
+                "acceptSponsor",
                 "email","department",
                 "cp","cursus",
                 "mobile","photo","address",

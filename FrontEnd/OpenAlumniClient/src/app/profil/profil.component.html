@@ -72,7 +72,7 @@
     </button>
 
     <button mat-button mat-icon-button
-           class="small-icon-button"
+            class="small-icon-button"
             title="Consulter son site web"
             name="cmdWebsite"
             *ngIf="profil?.website?.length>0"
@@ -81,7 +81,7 @@
     </button>
 
     <button mat-button mat-icon-button
-           class="small-icon-button"
+            class="small-icon-button"
             title="Supprimer le profil"
             name="cmdDelProfil"
             *ngIf="config.hasPerm('delete_profil')"
@@ -90,17 +90,17 @@
     </button>
 
     <button mat-button mat-icon-button
-           class="small-icon-button"
+            class="small-icon-button"
             title="Demander en tuteur"
             name="cmdAskTutor"
-            *ngIf="config.hasPerm('ask_tutor') && profil.acceptSponsor"
+            *ngIf="config.hasPerm('ask_tutor') && profil.acceptSponsor && config.user.profil"
             (click)="ask_tutor(profil)">
       <mat-icon>school</mat-icon>
     </button>
 
     <button mat-button mat-icon-button
             title="Editer mon profil"
-           class="small-icon-button"
+            class="small-icon-button"
             name="cmdEditProfil"
             *ngIf="writeAccess"
             (click)="editProfil(profil)">
@@ -120,12 +120,12 @@
 
     <button mat-button mat-icon-button
             title="Voir sa page linkedin"
-           class="small-icon-button"
+            class="small-icon-button"
             *ngIf="profil?.linkedin?.length>0 && config.hasPerm('r_linkedin')"
             (click)="openWebSite(profil?.linkedin)">
-      <img src="/assets/icons/LinkedIn.png"
-          class="small-icon-button"
-           style="background-color: white;">
+      <img  src="/assets/icons/LinkedIn.png"
+            class="small-icon-button"
+            style="background-color: white;">
     </button>
   </mat-card-actions>
 </mat-card>

@@ -152,6 +152,25 @@ def getyaml(request):
     return JsonResponse(result,safe=False)
 
 
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def search_profil(request):
+    email=request.GET.get("email","")
+    if len(email)>0:
+        profils=Profil.objects.filter(email__exact=email)
+        if len(profils)>0:
+            user=ExtraUser.objects.get(user__email=email)
+            if not user is None:
+                user.profil=profils.first()
+                user.save()
+                return Response({"message":"User update"})
+
+    Response({"message": "No update"})
+
+
+
+
+
 
 
 @api_view(["GET"])
