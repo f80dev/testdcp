@@ -113,6 +113,7 @@ class ExtraPOWSerializer(serializers.ModelSerializer):
 #http://localhost:8000/api/profils/?filter{firstname}=Adrien
 class ProfilSerializer(serializers.ModelSerializer):
     sponsorBy = serializers.StringRelatedField(many=False, read_only=True)
+
     class Meta:
         model=Profil
         fields=["id","lastname","firstname","acceptSponsor","sponsorBy",
@@ -128,7 +129,6 @@ class ProfilSerializer(serializers.ModelSerializer):
 #http://localhost:8000/api/profils/?filter{firstname}=Adrien
 class ExtraProfilSerializer(serializers.ModelSerializer):
     works = serializers.StringRelatedField(many=True,read_only=True)
-
     class Meta:
         model=Profil
         fields=["id","lastname","firstname","acceptSponsor","sponsorBy",

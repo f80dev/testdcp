@@ -54,7 +54,13 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     $$("Ouverture de la fenêtre de login");
 
-    if(localStorage.getItem("email") && localStorage.getItem("token"))this.quit();
+    let email=localStorage.getItem("email");
+    let token=localStorage.getItem("token");
+
+    if(email && token){
+      $$("L'utilisateur est déjà loggé sur "+email+" avec token="+token);
+      this.quit();
+    }
 
     var params: ParamMap = this.route.snapshot.queryParamMap;
     this.redirect = params.get("redirect");

@@ -1,4 +1,5 @@
 import datetime
+from dataclasses import Field
 
 import django
 from django.contrib.auth.models import AbstractUser, User
@@ -7,6 +8,7 @@ from django.db import models
 
 # Create your models here.
 #Mise a jour du model : python manage.py makemigrations
+from django.db.models import Model, CASCADE
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django_elasticsearch_dsl.registries import registry
@@ -40,7 +42,7 @@ class Profil(models.Model):
     vimeo=models.URLField(blank=True, null=True)
 
     acceptSponsor = models.BooleanField(null=False, default=False)
-    sponsorBy = models.ForeignKey('Profil', null=True, on_delete=models.PROTECT)
+    sponsorBy = models.ForeignKey('Profil', null=True,on_delete=CASCADE)
 
     photo=models.TextField(blank=True,help_text="Photo du profil au format Base64")
     gender=models.CharField(max_length=1,blank=False,default="M",choices=(('M','Male'),('F','Female'),('N','Non précisé')))

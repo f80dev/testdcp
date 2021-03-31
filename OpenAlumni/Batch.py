@@ -262,6 +262,7 @@ def extract_film_from_imdb(url:str,title:str,name="",job="",):
                     parent=l.parent.parent.find("td",{"class":"credit"})
                     if not parent is None:
                         rc["job"]=str(parent.getText().replace("\n","")).strip()
+                        rc["job"]=rc["job"].split("(")[0]
                         while "  " in rc["job"]:
                             rc["job"]=rc["job"].replace("  "," ")
 

@@ -13,6 +13,7 @@ from django.db import connection
 from django.http import JsonResponse, HttpResponse
 from django.utils.http import urlquote
 from django_elasticsearch_dsl import Index
+from django_elasticsearch_dsl_drf import serializers
 from django_elasticsearch_dsl_drf.constants import LOOKUP_QUERY_IN, \
     SUGGESTER_COMPLETION, LOOKUP_FILTER_TERMS, \
     LOOKUP_FILTER_PREFIX, LOOKUP_FILTER_WILDCARD, LOOKUP_QUERY_EXCLUDE, LOOKUP_FILTER_TERM
@@ -277,6 +278,14 @@ def batch(request):
         profils.update(auto_updates="0,0,0,0,0,0")
     exec_batch(profils)
     return Response({"message":"ok"})
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def get_students(request):
+    sponsor_id = request.GET.get("sponsor", "")
+    profils=Profil.objects.filter(sponsorBy__id=sponsor_id)
+    return JsonResponse(list(profils.values()),safe=False)
 
 
 @api_view(["GET"])

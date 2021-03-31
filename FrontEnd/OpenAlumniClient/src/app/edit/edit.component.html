@@ -11,9 +11,7 @@
           <mat-panel-title>
             Civilité
           </mat-panel-title>
-          <mat-panel-description class="app-mat-panel-description">
-            Noms, adresse & coordonnées
-          </mat-panel-description>
+
         </mat-expansion-panel-header>
 
         <img [src]="profil.photo"
@@ -116,9 +114,7 @@
           <mat-panel-title>
             Tutorat
           </mat-panel-title>
-          <mat-panel-description class="app-mat-panel-description">
-            Assister les nouveaux élèves
-          </mat-panel-description>
+
         </mat-expansion-panel-header>
 
         <table *ngIf="profil.sponsorBy"><tr style="width: 100%;">
@@ -128,8 +124,16 @@
           <td style="width: 30px;text-align: right;">
             <button class="icon-button" mat-icon-button
                     mat-raised-button
+                    title="Voir le profil de son tuteur"
+                    (click)="open_profil(profil.sponsorBy)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </td>
+          <td style="width: 30px;text-align: right;">
+            <button class="icon-button" mat-icon-button
+                    mat-raised-button
                     title="Contacter votre tuteur"
-                    (click)="contact_tuteur(profil.sponsorBy)">
+                    (click)="contact_profil(profil.sponsorBy)">
               <mat-icon>email</mat-icon>
             </button>
           </td>
@@ -137,7 +141,7 @@
             <button class="icon-button" mat-icon-button
                     mat-raised-button
                     title="Ne plus avoir comme tuteur"
-                    (click)="remove_tuteur(profil.sponsorBy)">
+                    (click)="remove_tuteur()">
               <mat-icon>cancel</mat-icon>
             </button>
           </td>
@@ -150,6 +154,55 @@
           [checked]="profil.acceptSponsor">
           Accepte d'être tuteur
         </mat-checkbox>
+        &nbsp;
+         <button class="app-button" mat-button
+                 *ngIf="students.length>0"
+                    mat-raised-button
+                    title="Ecrire à tous"
+                    (click)="write_all()">
+              Ecrire à tous
+            </button>
+
+         <div *ngIf="students.length>0" style="margin-top: 10px;">
+           <strong>Mes tutorés</strong>
+          <table>
+            <tr *ngFor="let st of students" style="width: 100%;">
+          <td style="width: 100%;">
+            {{st.lastname}}
+          </td>
+          <td style="width: 30px;text-align: right;">
+            <button class="icon-button" mat-icon-button
+                    mat-raised-button
+                    title="Voir le profil"
+                    (click)="open_profil(st.id)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </td>
+          <td style="width: 30px;text-align: right;">
+            <button class="icon-button" mat-icon-button
+                    mat-raised-button
+                    title="Le/la contacter"
+                    (click)="contact_profil(st.id)">
+              <mat-icon>email</mat-icon>
+            </button>
+          </td>
+          <td style="width: 30px;text-align: right;">
+            <button class="icon-button" mat-icon-button
+                    mat-raised-button
+                    title="Ne plus avoir comme tuteur"
+                    (click)="remove_student(st.id)">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </td>
+        </tr></table>
+         </div>
+
+
+
+
+
+
+
       </mat-expansion-panel>
 
       <!--      Job-->
@@ -158,9 +211,7 @@
           <mat-panel-title>
             Job
           </mat-panel-title>
-          <mat-panel-description class="app-mat-panel-description">
-            Augmenter vos opportunités
-          </mat-panel-description>
+
         </mat-expansion-panel-header>
 
         <mat-form-field appearance="fill" class="app-field" style="width: 70%;max-width: 250px;">
@@ -168,12 +219,12 @@
           <input matInput type="text" max="50" [(ngModel)]="query">
         </mat-form-field>
 
-        <button class="icon-button" mat-icon-button
-                mat-raised-button
-                title="Ouvrir tous les sites simultanément"
-                (click)="open_all_site('search')">
-          <mat-icon>search</mat-icon>
-        </button>
+<!--        <button class="icon-button" mat-icon-button-->
+<!--                mat-raised-button-->
+<!--                title="Ouvrir tous les sites simultanément"-->
+<!--                (click)="open_all_site('search')">-->
+<!--          <mat-icon>search</mat-icon>-->
+<!--        </button>-->
         <br>
 
 
@@ -181,12 +232,13 @@
           <tr style="width:100%;font-size: small;padding-bottom: 3px;" *ngFor="let site of jobsites">
             <td>
               <strong>{{site.name}}</strong><br>
-              {{site.description}}
+              <div style="line-height: 90%;font-size: small;">{{site.description}}</div>
             </td>
-            <td style="width:80px">
+            <td style="width:90px">
               <button class="icon-button" title="Rechercher" mat-icon-button mat-raised-button (click)="opensite(site,'search')">
                 <mat-icon>search</mat-icon>
               </button>
+              &nbsp;
               <button class="icon-button" title="Se connecter" mat-icon-button mat-raised-button (click)="opensite(site,'login')">
                 <mat-icon>person</mat-icon>
               </button>
