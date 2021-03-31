@@ -1,0 +1,40 @@
+<div class="mainform">
+  <h2>Rédigez une annonce</h2>
+  <div [froalaEditor]="options" style="margin: 10px;" >Hello, Froala!</div>
+  <br>
+
+  <mat-form-field class="app-field">
+  <mat-label>Tags</mat-label>
+  <mat-chip-list #chipList aria-label="Selection des tags">
+    <mat-chip
+      *ngFor="let tag of tags"
+      [selectable]="selectable"
+      [removable]="removable"
+      (removed)="remove(tag)">
+      {{tag}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input
+      #fruitInput
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="add($event)">
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+      {{tag}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+  <br><hr>
+
+  <button class="app-button" mat-button mat-raised-button
+          id="cmdClear" color="primary"
+          (click)="publish()">
+    Publiez !
+  </button>
+
+</div>
+

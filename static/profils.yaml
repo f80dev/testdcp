@@ -22,7 +22,7 @@ profils:
     level: 1
     presentation: Vous chercher des profils pour un projet
     description: Profil destiné aux employeur
-    perm: r_photo r_address r_lastname r_firstname r_linkedin prof r_works write_email r_promo advanced_search
+    perm: r_photo r_address r_lastname r_firstname r_linkedin prof r_works write_email r_promo advanced_search publish
     price: 0
     subscription: online
 
@@ -41,7 +41,7 @@ profils:
     description: Profil destiné aux administrateurs
     perm:
         r_photo r_cpr_firstname r_works r_linkedin w_cp w_firstname advanced_search r_promo
-        w_production w_email w_linkedin admin write_email r_mobile r_address r_lastname
+        w_production w_email w_linkedin admin write_email r_mobile r_address r_lastname publish
         r_department stats delete_profil delete_pow ask_friend edit_profil add_movies share ask_tutor
     price: 0
     subscription: online
@@ -61,7 +61,7 @@ profils:
     presentation: Vous faites partie de la FEMIS
     description: profil destiné aux organisme en charge de statistique
     perm:
-      stats r_cp r_firstname r_promo r_lastname r_works ask_friend add_movies
+      stats r_cp r_firstname r_promo r_lastname r_works ask_friend add_movies publish
       r_photo r_linkedin w_cp w_firstname w_production w_email w_linkedin edit_profil
       write_email r_mobile r_address r_department share advanced_search delete_profil
     price: 0
@@ -72,7 +72,7 @@ profils:
     level: 0
     presentation: vous êtes un ancien élève et souhaitez retrouver des anciens de votre école
     description: Profil destiné aux anciens élève
-    perm: r_promo r_photo r_cp r_address r_lastname r_firstname r_linkedin prof r_works write_email r_department advanced_search ask_friend ask_tutor
+    perm: r_promo r_photo r_cp r_address r_lastname r_firstname r_linkedin prof r_works write_email r_department advanced_search ask_friend ask_tutor publish
     price: 0
     subscription: email
 

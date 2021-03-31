@@ -57,6 +57,7 @@ RUN pip3 install pandas
 RUN pip3 install xlsxwriter
 RUN pip3 install docutils
 RUN pip3 install networkx
+RUN pip3 install py7zr
 
 #Création des répertoires
 ENV APP_HOME=/home/app

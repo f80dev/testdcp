@@ -25,6 +25,9 @@ perms:
   - tag: ask_tutor
     description: à la demande de tutorat
 
+  - tag: publish
+    description: publiez des annonces, articles, job
+
   - tag: delete_profil
     description: la suppression d'un profil
 

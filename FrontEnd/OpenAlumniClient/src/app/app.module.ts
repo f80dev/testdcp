@@ -67,6 +67,11 @@ import {NgChatModule} from "ng-chat";
 import {OverlayModule} from "@angular/cdk/overlay";
 import {MatRadioModule} from "@angular/material/radio";
 import { DevComponent } from './dev/dev.component';
+import { HtmlEditorComponent } from './html-editor/html-editor.component';
+import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
+import { BlogComponent } from './blog/blog.component';
+import {MatChipsModule} from "@angular/material/chips";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [
@@ -97,44 +102,50 @@ import { DevComponent } from './dev/dev.component';
     WriteComponent,
     StatsComponent,
     PowsComponent,
-    DevComponent
+    DevComponent,
+    HtmlEditorComponent,
+    BlogComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        ScrollingModule,
-        BrowserAnimationsModule,
-        MatNativeDateModule,
-        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-        MatCardModule,
-        QuillModule.forRoot({
-            placeholder: 'Ecrivez votre message'
-        }),
-        MatTableModule,
-        MatSnackBarModule,
-        ImageCropperModule,
-        TextFieldModule,
-        SocialLoginModule,
-        MatFormFieldModule,
-        MatInputModule,
-        NgChatModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatIconModule,
-        FormsModule,
-        MatProgressSpinnerModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatGridListModule,
-        MatSidenavModule,
-        MatToolbarModule,
-        MatListModule,
-        MatCheckboxModule,
-        MatExpansionModule,
-        OverlayModule,
-        MatRadioModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ScrollingModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
+    BrowserAnimationsModule,
+    MatNativeDateModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    MatCardModule,
+    QuillModule.forRoot({
+      placeholder: 'Ecrivez votre message'
+    }),
+    MatTableModule,
+    MatSnackBarModule,
+    ImageCropperModule,
+    TextFieldModule,
+    SocialLoginModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NgChatModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatGridListModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatCheckboxModule,
+    MatExpansionModule,
+    OverlayModule,
+    MatRadioModule,
+    MatChipsModule,
+    MatAutocompleteModule
+  ],
   providers: [
     ApiService,
     TransPipe,

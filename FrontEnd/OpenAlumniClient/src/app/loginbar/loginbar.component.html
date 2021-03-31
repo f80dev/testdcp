@@ -41,6 +41,15 @@
     &nbsp;&nbsp;Editer mon profil
   </a>
 
+  <a title="Rédiger un article"
+     *ngIf="config.user?.profil && config.hasPerm('publish')"
+     routerLink="htmledit"
+     mat-list-item
+     id="cmdPublish">
+    <mat-icon>subject</mat-icon>
+    &nbsp;&nbsp;Publier un article
+  </a>
+
  <a title="Ajouter des films dans le catalogue"
      *ngIf="config.hasPerm('add_movies') || isLocal"
      routerLink="addpow"
