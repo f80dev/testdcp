@@ -1,6 +1,6 @@
 <div class="mainform">
-  <h2>Rédigez une annonce</h2>
-  <div [froalaEditor]="options" style="margin: 10px;" >Hello, Froala!</div>
+  <h2>Rédigez un article, une annonce</h2>
+  <div [(froalaModel)]="editorContent" [froalaEditor]="options" style="margin: 10px;color: black;" >Hello, Froala!</div>
   <br>
 
   <mat-form-field class="app-field">
@@ -28,7 +28,15 @@
   </mat-autocomplete>
 </mat-form-field>
 
-  <br><hr>
+  <br>
+
+  <button class="app-button" mat-button mat-raised-button
+          id="cmdSave"
+          [disabled]="!editorContent"
+          (click)="save()">
+    Enregistrer
+  </button>
+
 
   <button class="app-button" mat-button mat-raised-button
           id="cmdClear" color="primary"

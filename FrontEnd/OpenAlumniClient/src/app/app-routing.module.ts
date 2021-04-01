@@ -18,6 +18,7 @@ import {AboutComponent} from "./about/about.component";
 import {PowsComponent} from "./pows/pows.component";
 import {DevComponent} from "./dev/dev.component";
 import {HtmlEditorComponent} from "./html-editor/html-editor.component";
+import {BlogComponent} from "./blog/blog.component";
 
 const routes: Routes = [
   { path: 'public', component: PublicComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'pow', component: PowComponent},
   { path: 'pows', component: PowsComponent},
   { path: 'htmledit', component: HtmlEditorComponent},
+  { path: 'blog', component: BlogComponent},
   { path: 'addpow', component: AddpowComponent},
   { path: 'admin', component: AdminComponent},
   { path: 'dev', component: DevComponent},

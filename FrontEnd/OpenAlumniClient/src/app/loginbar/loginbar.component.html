@@ -30,6 +30,14 @@
     &nbsp;&nbsp;Consulter les films
   </a>
 
+  <a title="Voir le blog"
+     routerLink="blog"
+     mat-list-item
+     id="cmdBlog">
+    <mat-icon>rss_feed</mat-icon>
+    &nbsp;&nbsp;Le blog
+  </a>
+
   <br>
   <a title="Editer votre profil"
      *ngIf="config.user?.profil"

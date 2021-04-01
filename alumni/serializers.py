@@ -16,7 +16,7 @@ from OpenAlumni import settings
 from OpenAlumni.Tools import reset_password, log, sendmail
 from OpenAlumni.settings import APPNAME
 from alumni.documents import ProfilDocument, PowDocument
-from alumni.models import Profil, ExtraUser, PieceOfWork, Work
+from alumni.models import Profil, ExtraUser, PieceOfWork, Work, Article
 
 
 class UserSerializer(HyperlinkedModelSerializer):
@@ -124,6 +124,17 @@ class ProfilSerializer(serializers.ModelSerializer):
                 "cp","public_url","fullname","cursus",
                 "address","town","promo","dtLastSearch"]
 
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Article
+        ordering=["-dtCreate"]
+        fields=["id","owner","validate","html","dtCreate","dtPublish","tags","to_publish"]
+
+
+    def to_representation(self, instance):
+        self.fields['owner'] = ProfilSerializer(read_only=True)
+        return super(ArticleSerializer, self).to_representation(instance)
 
 
 #http://localhost:8000/api/profils/?filter{firstname}=Adrien

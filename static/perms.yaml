@@ -26,7 +26,10 @@ perms:
     description: à la demande de tutorat
 
   - tag: publish
-    description: publiez des annonces, articles, job
+    description: rédiger / publiez des annonces, articles, job
+
+  - tag: validate
+    description: gérer les annonces, articles
 
   - tag: delete_profil
     description: la suppression d'un profil

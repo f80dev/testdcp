@@ -17,6 +17,7 @@ from OpenAlumni.Tools import now
 from OpenAlumni.settings import DOMAIN_APPLI
 
 
+
 class Profil(models.Model):
     """
     Le profil stocke l'ensemble des informations sur les anciens étudiants, issue du cursus standard ou pro
@@ -124,6 +125,19 @@ class Profil(models.Model):
 
 
 
+
+class Article(models.Model):
+    id = models.AutoField(primary_key=True)
+    owner = models.ForeignKey(Profil, null=False, on_delete=models.CASCADE, related_name="Articles",help_text="Auteur de l'article")
+    validate=models.BooleanField(default=False,null=False,help_text="Une fois à vrai l'article est visible de tous")
+    html=models.TextField(max_length=5000, blank=True,default="",help_text="Contenu de l'article")
+    dtPublish = models.DateField(null=True, help_text="Date de publication de l'article")
+    dtCreate = models.DateField(auto_now=True, null=False, help_text="Date de création de l'article")
+    tags=models.CharField(max_length=100,default="")
+    to_publish=models.BooleanField(default=False,null=False,help_text="Demander la publication")
+
+    class Meta:
+        ordering = ["dtCreate"]
 
 
 #Gestion du modele UserExtra______________________________________________________________________________________

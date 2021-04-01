@@ -47,11 +47,10 @@ from OpenAlumni.Tools import dateToTimestamp, stringToUrl, reset_password, log, 
 from OpenAlumni.settings import APPNAME, DOMAIN_APPLI, EMAIL_PERM_VALIDATOR
 from OpenAlumni.social import create_graph
 from alumni.documents import ProfilDocument, PowDocument
-from alumni.models import Profil, ExtraUser, PieceOfWork, Work
+from alumni.models import Profil, ExtraUser, PieceOfWork, Work, Article
 from alumni.serializers import UserSerializer, GroupSerializer, ProfilSerializer, ExtraUserSerializer, POWSerializer, \
     WorkSerializer, ExtraPOWSerializer, ExtraWorkSerializer, ProfilDocumentSerializer, \
-    PowDocumentSerializer, WorksCSVRenderer
-
+    PowDocumentSerializer, WorksCSVRenderer, ArticleSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -102,6 +101,15 @@ class ProfilViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     filter_backends = (SearchFilter,)
     search_fields = ["email"]
+
+
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    permission_classes = [AllowAny]
+    filter_backends = (SearchFilter,)
+    search_fields = ["autor"]
 
 
 
@@ -292,8 +300,6 @@ def get_students(request):
 @permission_classes([AllowAny])
 def initdb(request):
     return Response({"message": "Base initialisée"})
-
-
 
 
 
