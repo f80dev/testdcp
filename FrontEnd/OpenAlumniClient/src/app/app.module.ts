@@ -68,7 +68,6 @@ import {OverlayModule} from "@angular/cdk/overlay";
 import {MatRadioModule} from "@angular/material/radio";
 import { DevComponent } from './dev/dev.component';
 import { HtmlEditorComponent } from './html-editor/html-editor.component';
-import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
 import { BlogComponent } from './blog/blog.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
@@ -111,15 +110,19 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     AppRoutingModule,
     HttpClientModule,
     ScrollingModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
+    QuillModule.forRoot({
+      modules: {
+        syntax:false,
+      },
+      theme: 'snow',
+      format: 'html',
+      readOnly: false,
+      placeholder: 'votre article ici'
+    }),
     BrowserAnimationsModule,
     MatNativeDateModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     MatCardModule,
-    QuillModule.forRoot({
-      placeholder: 'Ecrivez votre message'
-    }),
     MatTableModule,
     MatSnackBarModule,
     ImageCropperModule,
@@ -144,7 +147,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     OverlayModule,
     MatRadioModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    QuillModule
   ],
   providers: [
     ApiService,

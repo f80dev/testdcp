@@ -10,22 +10,14 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {ConfigService} from "../config.service";
 import {showMessage} from "../tools";
 
+
 @Component({
   selector: 'app-html-editor',
   templateUrl: './html-editor.component.html',
   styleUrls: ['./html-editor.component.sass']
 })
+
 export class HtmlEditorComponent implements OnInit {
-
-  options:object  = {
-      placeholderText: 'Rédigez votre annonce ici',
-      colorsBackground: ['#61BD6D', '#1ABC9C', '#54ACD2', 'REMOVE'],
-      colorsText: ['#61BD6D', '#1ABC9C', '#54ACD2', 'REMOVE'],
-      theme: "dark",
-      charCounterCount: true,
-      toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','alert']
-    };
-
   visible = true;
   selectable = true;
   removable = true;
@@ -37,7 +29,7 @@ export class HtmlEditorComponent implements OnInit {
 
   @ViewChild('fruitInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
-  editorContent: any;
+  editorContent: string="Votre article ici";
 
   constructor(
     public api:ApiService,

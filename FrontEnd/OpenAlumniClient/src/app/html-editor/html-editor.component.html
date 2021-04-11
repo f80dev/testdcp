@@ -1,32 +1,34 @@
 <div class="mainform">
   <h2>Rédigez un article, une annonce</h2>
-  <div [(froalaModel)]="editorContent" [froalaEditor]="options" style="margin: 10px;color: black;" >Hello, Froala!</div>
-  <br>
+  <div class="mat-elevation-z12" style="min-height: 300px;color: black;display: inline-block;width:95%;background-color: white;">
+    <quill-editor [(ngModel)]="editorContent"></quill-editor>
+  </div>
+  <br><br>
 
   <mat-form-field class="app-field">
-  <mat-label>Tags</mat-label>
-  <mat-chip-list #chipList aria-label="Selection des tags">
-    <mat-chip
-      *ngFor="let tag of tags"
-      [selectable]="selectable"
-      [removable]="removable"
-      (removed)="remove(tag)">
-      {{tag}}
-      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-    </mat-chip>
-    <input
-      #fruitInput
-      [matAutocomplete]="auto"
-      [matChipInputFor]="chipList"
-      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      (matChipInputTokenEnd)="add($event)">
-  </mat-chip-list>
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-      {{tag}}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
+    <mat-label>Tags</mat-label>
+    <mat-chip-list #chipList aria-label="Selection des tags">
+      <mat-chip
+        *ngFor="let tag of tags"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(tag)">
+        {{tag}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input
+        #fruitInput
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+        {{tag}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 
   <br>
 
