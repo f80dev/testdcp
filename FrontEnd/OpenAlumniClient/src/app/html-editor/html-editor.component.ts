@@ -8,7 +8,8 @@ import {MatChipInputEvent} from "@angular/material/chips";
 import {ApiService} from "../api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ConfigService} from "../config.service";
-import {showMessage} from "../tools";
+import {showError, showMessage} from "../tools";
+import {Location} from "@angular/common";
 
 
 @Component({
@@ -30,11 +31,13 @@ export class HtmlEditorComponent implements OnInit {
   @ViewChild('fruitInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   editorContent: string="Votre article ici";
+  message: string="";
 
   constructor(
     public api:ApiService,
     public toast:MatSnackBar,
-    public config:ConfigService
+    public config:ConfigService,
+    public _location:Location
   ) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
@@ -43,18 +46,26 @@ export class HtmlEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.editorContent=localStorage.getItem("article_content");
-    if(!this.editorContent)this.editorContent="";
+    if(!this.editorContent || this.editorContent=="null")this.editorContent="Votre article ici";
   }
 
 
   publish() {
-    let id=localStorage.getItem("article_id");
-    this.api._patch("articles/"+id+"/","", {to_publish:true}).subscribe((r:any)=>{
-        showMessage(this,"Article en attente de publication");
-        localStorage.setItem("article_id",null);
-        localStorage.setItem("article_content",null);
-      });
+    this.message="En cours de publication";
+    this.save((id)=>{
+      this.api._patch("articles/"+id+"/","", {to_publish:true}).subscribe((r:any)=>{
+        this.message="";
+          showMessage(this,"Article en attente de publication");
+          localStorage.setItem("article_id",null);
+          localStorage.setItem("article_content",null);
+          this.editorContent="";
+          this._location.back();
+        },(err)=>{showError(this,err)});
+    });
+
   }
+
+
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -73,9 +84,10 @@ export class HtmlEditorComponent implements OnInit {
     this.tagCtrl.setValue(null);
   }
 
+
+
   remove(fruit: string): void {
     const index = this.tags.indexOf(fruit);
-
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
@@ -94,7 +106,7 @@ export class HtmlEditorComponent implements OnInit {
   }
 
 
-  save() {
+  save(func=null) {
     localStorage.setItem("article_content",this.editorContent);
     let id=localStorage.getItem("article_id");
     let body= {
@@ -108,12 +120,22 @@ export class HtmlEditorComponent implements OnInit {
       this.api._post("articles/","",body).subscribe((r:any)=>{
         localStorage.setItem("article_id",r.id);
         showMessage(this,"Nouvel Article enregistré");
+        if(func)func(id);
       });
     } else {
       this.api._put("articles/"+id+"/","",body).subscribe((r:any)=>{
         showMessage(this,"Article modifié");
+        if(func)func(id);
       });
     }
 
+  }
+
+  _import(fileInputEvent: any) {
+    var reader = new FileReader();
+      reader.onload = ()=>{
+        this.editorContent=String(reader.result);
+      };
+      reader.readAsText(fileInputEvent.target.files[0],"utf-8");
   }
 }

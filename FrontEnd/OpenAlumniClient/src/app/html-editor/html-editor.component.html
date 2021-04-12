@@ -1,5 +1,6 @@
 <div class="mainform">
   <h2>Rédigez un article, une annonce</h2>
+  <app-hourglass [message]="message"></app-hourglass>
   <div class="mat-elevation-z12" style="min-height: 300px;color: black;display: inline-block;width:95%;background-color: white;">
     <quill-editor [(ngModel)]="editorContent"></quill-editor>
   </div>
@@ -31,6 +32,23 @@
   </mat-form-field>
 
   <br>
+
+  <input #csvInput hidden="true"
+       type="file" onclick="this.value=null"
+       (change)="_import($event)"
+       accept=".csv"/>
+
+   <button class="app-button" mat-button mat-raised-button
+          id="cmdImport"
+          (click)="csvInput.click()">
+    Importer
+  </button>
+
+   <button class="app-button" mat-button mat-raised-button
+          id="cmdReset"
+          (click)="editorContent=''">
+    Effacer
+  </button>
 
   <button class="app-button" mat-button mat-raised-button
           id="cmdSave"
