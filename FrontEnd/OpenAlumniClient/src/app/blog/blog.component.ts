@@ -41,8 +41,7 @@ export class BlogComponent implements OnInit {
       this.articles=[];
       for(let a of articles.results){
         if(this.config.hasPerm('validate') || a.validate){
-          debugger
-          if(a.tags.indexOf(this.selected_tag)>-1 || this.selected_tag=="Tous")
+          if(!this.selected_tag || a.tags.indexOf(this.selected_tag)>-1)
             this.articles.push(a);
         }
       }

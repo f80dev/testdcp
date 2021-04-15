@@ -127,10 +127,11 @@ export class SearchComponent implements OnInit {
   handle=null;
   searchInTitle: boolean = false;
   fields=[
-    {field:"Nom",value:"lastname"},
     {field:"Anciennes Promo",value:"promo"},
     {field:"Nouvelles Promos",value:"-promo"},
-    {field:"Mise a jour",value:"-update"}
+    {field:"Mise a jour",value:"-update"},
+    {field:"Non mise a jour",value:"update"},
+    {field:"Création",value:"-id"}
   ]
 
   advanced_search=[];

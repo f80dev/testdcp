@@ -18,7 +18,7 @@
 
   <button mat-button mat-raised-button
           class="app-button"
-          id="cmdOpenStat"
+          id="cmdOpenStat" color="primary"
           *ngIf="sel_report?.length>0 && sel_report!='building'"
           (click)="openStats()">
     Ouvrir
@@ -37,13 +37,13 @@
   <table class="mat-elevation-z8" *ngIf="!showGraphQL">
     <tr>
       <td>Données brutes</td>
-      <td>
-         <button mat-button mat-raised-button class="app-button"
+      <td style="text-align: left;">
+         <button mat-button mat-raised-button class="app-button" style="width: 120px;"
           (click)="downloadReport('csv')">
             <mat-icon>download</mat-icon>&nbsp;CSV
           </button>
           &nbsp;
-          <button mat-button mat-raised-button class="app-button"
+          <button mat-button mat-raised-button class="app-button" style="width: 120px;"
           (click)="downloadReport('xml')">
             <mat-icon>download</mat-icon>&nbsp;XML
           </button>
@@ -52,14 +52,14 @@
 
     <tr>
       <td>Modèle d'analyse</td>
-      <td>
-        <button mat-button mat-raised-button class="app-button"
+      <td style="text-align: left;">
+        <button mat-button mat-raised-button class="app-button" style="width: 120px;"
           (click)="downloadReport('excel')">
           <mat-icon>download</mat-icon>
           Excel
         </button>
         &nbsp;
-          <button mat-button mat-raised-button class="app-button"
+          <button mat-button mat-raised-button class="app-button" style="width: 120px;"
           (click)="downloadReport('powerbi')">
           <mat-icon>download</mat-icon>
           PowerBI

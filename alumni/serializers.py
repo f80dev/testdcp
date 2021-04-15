@@ -7,6 +7,7 @@ from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 from rest_framework import serializers
 from django.contrib.auth.models import User, Group
 from rest_framework.authtoken.models import Token
+from rest_framework.relations import PrimaryKeyRelatedField, StringRelatedField
 from rest_framework.serializers import HyperlinkedModelSerializer
 from rest_framework.validators import UniqueValidator
 from rest_framework_csv.renderers import CSVRenderer
@@ -112,8 +113,6 @@ class ExtraPOWSerializer(serializers.ModelSerializer):
 
 #http://localhost:8000/api/profils/?filter{firstname}=Adrien
 class ProfilSerializer(serializers.ModelSerializer):
-    sponsorBy = serializers.StringRelatedField(many=False, read_only=True)
-
     class Meta:
         model=Profil
         fields=["id","lastname","firstname","acceptSponsor","sponsorBy",
@@ -123,6 +122,7 @@ class ProfilSerializer(serializers.ModelSerializer):
                 "dtLastUpdate","links","str_links",
                 "cp","public_url","fullname","cursus",
                 "address","town","promo","dtLastSearch"]
+
 
 
 class ArticleSerializer(serializers.ModelSerializer):
@@ -140,15 +140,18 @@ class ArticleSerializer(serializers.ModelSerializer):
 #http://localhost:8000/api/profils/?filter{firstname}=Adrien
 class ExtraProfilSerializer(serializers.ModelSerializer):
     works = serializers.StringRelatedField(many=True,read_only=True)
+    sponsor = ProfilSerializer(many=False,read_only=True)
     class Meta:
         model=Profil
-        fields=["id","lastname","firstname","acceptSponsor","sponsorBy",
+        fields=["id","lastname","firstname","acceptSponsor","sponsorBy","sponsor",
                 "facebook", "youtube", "tiktok", "vimeo", "instagram", "telegram", "twitter",
                 "mobile","email","photo","gender","job",
                 "linkedin","works","degree_year","department",
                 "dtLastUpdate","links","str_links",
                 "cp","public_url","fullname","cursus",
                 "address","town","promo"]
+
+
 
 
 
@@ -181,7 +184,7 @@ class ProfilDocumentSerializer(DocumentSerializer):
     class Meta:
         document=ProfilDocument
         fields=("id","firstname","lastname",
-                "acceptSponsor",
+                "acceptSponsor","sponsorBy",
                 "name","cursus","job","links",
                 "degree_year","public_url",
                 "photo","cp","department",

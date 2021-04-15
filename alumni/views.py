@@ -50,7 +50,7 @@ from alumni.documents import ProfilDocument, PowDocument
 from alumni.models import Profil, ExtraUser, PieceOfWork, Work, Article
 from alumni.serializers import UserSerializer, GroupSerializer, ProfilSerializer, ExtraUserSerializer, POWSerializer, \
     WorkSerializer, ExtraPOWSerializer, ExtraWorkSerializer, ProfilDocumentSerializer, \
-    PowDocumentSerializer, WorksCSVRenderer, ArticleSerializer
+    PowDocumentSerializer, WorksCSVRenderer, ArticleSerializer, ExtraProfilSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -101,6 +101,12 @@ class ProfilViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     filter_backends = (SearchFilter,)
     search_fields = ["email"]
+
+class ExtraProfilViewSet(viewsets.ModelViewSet):
+    queryset = Profil.objects.all()
+    serializer_class = ExtraProfilSerializer
+    permission_classes = [AllowAny]
+    filter_backends = (SearchFilter,)
 
 
 
@@ -786,9 +792,7 @@ class ProfilDocumentView(DocumentViewSet):
     }
     ordering_fields = {
         'id':'id',
-        'lastname':'lastname',
         'promo':'degree_year',
-        'formation':'department',
         'update':'dtLastUpdate'
     }
     suggester_fields = {
@@ -797,7 +801,6 @@ class ProfilDocumentView(DocumentViewSet):
             'suggesters': [SUGGESTER_COMPLETION,],
         },
     }
-    ordering = ("name")
 
 
 

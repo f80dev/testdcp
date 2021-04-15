@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {$$, showMessage} from "../tools";
+import {$$, showError, showMessage} from "../tools";
 import {NgNavigatorShareService} from "ng-navigator-share";
 import {ClipboardService} from "ngx-clipboard";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -95,13 +95,13 @@ export class ProfilComponent implements OnInit,OnChanges {
 
   ask_tutor(profil: any) {
     profil.acceptSponsor=false;
-    this.api._patch("profils/"+profil.id+"/","",{acceptSponsor:false}).subscribe(()=>{
-      $$("Mise à jour du profil tuteur");
-      this.api._patch("profils/"+this.config.user.profil+"/","",{sponsorBy:profil.id}).subscribe(()=>{
-        $$("Mise a jour du profil demandeur");
+    $$("Mise a jour du profil demandeur");
+    this.api._patch("profils/"+this.config.user.profil+"/","",{sponsorBy:profil.id}).subscribe((r:any)=>{
+      $$("Mise à jour du profil du tuteur");
+      this.api._patch("profils/"+profil.id+"/","",{acceptSponsor:false}).subscribe(()=>{
         showMessage(this,"Vous êtes tutorés par "+profil.name);
-      });
-    })
+      },(err)=>{showError(this,err);});
+    },(err)=>{showError(this,err);})
   }
 }
 

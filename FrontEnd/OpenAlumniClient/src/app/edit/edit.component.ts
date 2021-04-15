@@ -139,8 +139,12 @@ export class EditComponent implements OnInit  {
       $$("Profil chargé ",p);
       if(p){
         this.profil=p;
-        if(this.profil.sponsorBy)
-          this.profil.sponsorBy=JSON.parse(this.profil.sponsorBy.replaceAll("'","\""));
+        if(this.profil.sponsorBy){
+          this.api._get("profils/"+this.profil.sponsorBy+"/","").subscribe((sponsor:any)=>{
+            this.profil.sponsorBy=sponsor;
+          })
+        }
+
 
         let d_min=1e9;
         for(let j of this.config.jobs){
@@ -368,9 +372,9 @@ export class EditComponent implements OnInit  {
   }
 
   remove_tuteur() {
-    this.api._patch("profils/"+this.profil.id+"/","", {sponsorBy:0}).subscribe(()=>{
+    this.api._patch("profils/"+this.profil.id+"/","", {sponsorBy:null}).subscribe(()=>{
       this._location.back();
-    });
+    },(err)=>{showError(this,err)});
   }
 
   open_profil(profil: any) {
@@ -384,6 +388,7 @@ export class EditComponent implements OnInit  {
   }
 
   remove_student(id: string) {
+
     this.api._patch("profils/"+id+"/","",{sponsorBy:null}).subscribe(()=>{
       this._location.back();
     });

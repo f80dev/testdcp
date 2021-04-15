@@ -1,10 +1,8 @@
 import hashlib
 import html
+from time import sleep
 from os import remove, scandir, stat
 from os.path import exists
-from sys import path
-from urllib import parse
-from urllib.parse import urlparse
 
 import py7zr
 import wikipedia
@@ -393,12 +391,15 @@ def load_page(url:str):
 
 
     if exists("./Temp/"+filename) and datetime.now().timestamp()-stat("./Temp/"+filename).st_mtime<3600*24*31:
+        log("Utilisation du cache pour "+url)
         with open("./Temp/"+filename, 'r', encoding='utf8') as f:
             html=f.read()
             f.close()
 
         return wikipedia.BeautifulSoup(html)
     else:
+        log("Chargement de la page "+url)
+        sleep(random.randint(1000,2000)/1000)
         rc= wikipedia.BeautifulSoup(wikipedia.requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}).text, "html5lib")
 
         with open("./Temp/"+filename, 'w', encoding='utf8') as f:

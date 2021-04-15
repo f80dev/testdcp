@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 #import numpy as np
 from django.utils.datetime_safe import datetime
 from imdb import IMDb
-from wikipedia import wikipedia, random, re
+from wikipedia import wikipedia, re
 
 from OpenAlumni.Tools import log, translate, load_page, clear_directory
 from OpenAlumni.settings import MOVIE_CATEGORIES, MOVIE_NATURE, DELAY_TO_AUTOSEARCH
@@ -340,7 +340,6 @@ def add_pows_to_profil(profil,links,all_links,job_for):
                     break
 
         if not pow:
-            sleep(random() * 1200)
             if "unifrance" in l["url"]:
                 film = extract_film_from_unifrance(l["url"], job_for=job_for)
                 source = "auto:unifrance"
